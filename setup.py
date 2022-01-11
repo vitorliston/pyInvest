@@ -2,7 +2,7 @@ import PyInstaller.__main__
 import os
 
 #,'--noconsole'
-param=[  '--name=%s' % 'MyInvest','--noconsole']#,  '--onefile','--icon=%s' % 'resources/icon.ico',]
+param=[  '--name=%s' % 'PyInvest','--noconsole']#,  '--onefile','--icon=%s' % 'resources/icon.ico',]
 
 
 for path, subdirs, files in os.walk('resources'):
