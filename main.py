@@ -50,7 +50,7 @@ class MainWindow(QMainWindow):
         self.thr = None
         self.view = None
 
-        if exists('data/{}'.format(self.datafile)):
+        if exists(self.datafile):
             self.update_thread()
         else:
             self.statusBar().showMessage('Please select transactions file to begin', 100000)
@@ -101,15 +101,19 @@ class MainWindow(QMainWindow):
     def open_transactions(self):
         """Manually load transactions file"""
 
-        file = QtWidgets.QFileDialog.getOpenFileName(self, 'Select transactions file')[0].split('/')[-1]
+        file = QtWidgets.QFileDialog.getOpenFileName(self, 'Select transactions file')[0]
         self.datafile = file
-        if exists('data/{}'.format(self.datafile)):
+        print('Open {}'.format(self.datafile))
+        if exists(self.datafile):
             self.update_thread()
+        else:
+            print('File path {} is not valid'.format(self.datafile))
+
 
     def update_data(self):
         """Tasks to be performed inside a thread, do not update gui elements here"""
 
-        self.transaction_window.filename = 'data/{}'.format(self.datafile)
+        self.transaction_window.filename = self.datafile
         self.transaction_window.parse_transactions()
 
         self.portfolio.load_transactions(self.transaction_window.transactions)
